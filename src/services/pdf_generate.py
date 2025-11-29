@@ -8,6 +8,7 @@ import platform
 import os
 
 def create_pdf(video_title: str, transcript_text, output_dir="", calback_func=None):
+    #! Function that generates a PDF file using the transcript text
     """
     PDF oluşturur.
     Args:
@@ -19,59 +20,64 @@ def create_pdf(video_title: str, transcript_text, output_dir="", calback_func=No
     Returns:
         PDF dosya adı (tam yol)
     """
-    # Güvenli dosya adı
+
+    #? Preparing transcript placeholder
     new_transcript_text = ""
     calback_func(0.2, "Pdf Creating . . .") # type: ignore
-    
+
+    #! Generate a safe filename using allowed characters only
     safe_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -_.')
     file_name_safe = "".join(c if c in safe_chars else '_' for c in video_title).strip()
     if len(file_name_safe) > 100:
         file_name_safe = file_name_safe[:100]
-    
+
     calback_func(0.4, "Pdf Creating . . .") # type: ignore
-    
+
+    #? Final PDF path creation
     pdf_file = os.path.join(output_dir, f"{file_name_safe}.pdf")
-    
-    # PDF oluşturucu
+
+    #! Creating the PDF document with margins
     doc = SimpleDocTemplate(pdf_file, pagesize=A4, rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=50)
-    
-    # ✅ Font yolu - Önce proje içinden, sonra sistem fontlarından
-    font_name = 'Helvetica'  # Varsayılan
-    
-    # Font yolu sıralaması
+
+    #? Default font name
+    font_name = 'Helvetica'
+
+    #! Paths to check for font availability
     font_paths = [
-        'assets/fonts/arial.ttf',  # ✅ Proje içi (mobil için)
-        'assets/fonts/Arial.ttf',  # Büyük A ile de dene
-        r'C:\Windows\Fonts\arial.ttf',  # Windows
-        '/Library/Fonts/Arial.ttf',  # macOS
+        'assets/fonts/arial.ttf',  # project-level font
+        'assets/fonts/Arial.ttf',
+        r'C:\\Windows\\Fonts\\arial.ttf',
+        '/Library/Fonts/Arial.ttf',
     ]
-    
+
+    #? Attempt to load a custom font (Arial) if available
     try:
         for font_path in font_paths:
             if os.path.exists(font_path):
                 pdfmetrics.registerFont(TTFont('Arial', font_path))
                 font_name = 'Arial'
-                print(f"✅ Font yüklendi: {font_path}")
                 break
     except Exception as e:
-        print(f"⚠️ Font yüklenemedi, varsayılan font kullanılıyor: {e}")
-    
+        print(f"Font load error, using default: {e}")
+
     calback_func(0.7, "text convertations . . .") # type: ignore
+
+    #! Combining all transcript text into a single string
     new_transcript_text = " ".join(entry["text"] for entry in transcript_text)
-    
-    # Stil ayarları
+
+    #? PDF text style configuration
     styles = getSampleStyleSheet()
     normal_style = styles["Normal"]
     normal_style.fontName = font_name
     normal_style.fontSize = 11
     normal_style.leading = 14
-    
+
     calback_func(0.9, "Pdf Creating . . .") # type: ignore
-    
-    # PDF içeriği
+
+    #! Building PDF structure
     story = []
     story.append(Paragraph(new_transcript_text.replace("\n", "<br/>"), normal_style))
-    
-    # PDF kaydet
+
+    #? Saving the PDF to disk
     doc.build(story)
     calback_func(1.0, "Pdf Created") # type: ignore

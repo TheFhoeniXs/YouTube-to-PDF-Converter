@@ -1,182 +1,275 @@
-# Transcriptor App
+# 🎬 YouTube to PDF Converter 📄
 
-YouTube videolarından transcript alıp PDF'e dönüştüren masaüstü uygulaması.
+> 🚀 A powerful desktop application that converts YouTube video transcripts into beautiful PDF documents! Built with Python and Flet framework.
 
-## Özellikler
+## ✨ Features
 
-- ✅ YouTube video transcript'lerini otomatik çekme
-- 📄 Transcript'leri PDF formatına dönüştürme
-- 🎨 Modern ve kullanıcı dostu arayüz
-- ⚡ Asenkron işlem kuyruğu
-- 💾 Ayarları kalıcı olarak kaydetme
+- 🎥 **YouTube Transcript Extraction**: Automatically fetches video transcripts from YouTube
+- 📄 **PDF Generation**: Converts transcripts into well-formatted PDF documents
+- 📋 **Queue Management**: Process multiple videos in a queue system
+- ⚙️ **Settings Panel**: Configure API key and download directory
+- 🌙 **Dark Theme UI**: Modern and clean dark-themed interface
+- 📊 **Progress Tracking**: Real-time progress updates for each conversion task
+- ⚡ **Async Operations**: Non-blocking video processing with async/await
+- 🎯 **URL Validation**: Smart YouTube URL detection and validation
+- ❌ **Task Cancellation**: Cancel individual tasks anytime
 
-## Gereksinimler
+## 📋 Requirements
 
-- Python 3.9 veya üzeri
-- UV veya Poetry paket yöneticisi
+- 🐍 Python 3.10+
+- 🌐 Active internet connection
+- 🔑 TranscriptAPI key (for fetching YouTube transcripts)
 
-## Kurulum
+## 📦 Installation
 
-### UV ile
-
-Projeyi klonlayın ve bağımlılıkları yükleyin:
+### 1️⃣ **Clone the repository**
 ```bash
 git clone <repository-url>
-cd transcriptor
-uv sync
+cd youtube-pdf-converter
 ```
 
-### Poetry ile
+### 2️⃣ **Install dependencies**
 ```bash
-git clone <repository-url>
-cd transcriptor
-poetry install
+pip install -r requirements.txt
 ```
 
-## Uygulamayı Çalıştırma
+### 📚 Required Libraries
 
-### UV
+```txt
+flet          # 🎨 Modern UI framework
+aiohttp       # 🌐 Async HTTP client
+reportlab     # 📄 PDF generation
+```
 
-Masaüstü uygulaması olarak çalıştır:
+## 🚀 Quick Start
+
+### 1️⃣ **Start the application**
 ```bash
-uv run flet run
+python main.py
 ```
 
-Web uygulaması olarak çalıştır:
-```bash
-uv run flet run --web
+### 2️⃣ **Configure Settings** ⚙️
+   - Click the settings icon (⚙️) in the top-right corner
+   - 🔑 Enter your TranscriptAPI key
+   - 📁 Select download directory for PDF files
+   - 💾 Click "Save Settings"
+
+### 3️⃣ **Convert YouTube Videos** 🎬
+   - 📋 Paste a YouTube URL into the input field
+   - ✅ Press Enter or click outside the field to validate
+   - 🎯 Click "Convert to PDF" to start processing
+   - 📊 Monitor progress in the queue panel
+
+## 📁 Project Structure
+
+```
+youtube-pdf-converter/
+├── 🎯 main.py                          # Main application entry point
+├── 📦 services/
+│   ├── 🎥 transcript.py                # YouTube transcript fetching service
+│   ├── 📄 pdf_generate.py              # PDF generation service
+│   ├── ⚙️ settings_manager.py          # Settings management service
+│   └── 💾 settings/
+│       └── settings.json               # User settings storage
+├── 📖 README.md                        # Project documentation
+└── 📋 requirements.txt                 # Python dependencies
 ```
 
-### Poetry
+## 🔧 Configuration
 
-Masaüstü uygulaması olarak çalıştır:
-```bash
-poetry run flet run
+Settings are stored in `services/settings/settings.json`:
+
+```json
+{
+    "api_key": "your-api-key-here",           // 🔑 Your TranscriptAPI key
+    "download_path": "/path/to/folder",       // 📁 PDF save location
+    "auto_save": false                        // 💾 Auto-save feature
+}
 ```
 
-Web uygulaması olarak çalıştır:
-```bash
-poetry run flet run --web
+## 🎨 Features in Detail
+
+### 📋 Video Queue System
+- ➕ Add multiple YouTube URLs
+- 🔄 Automatic sequential processing
+- ❌ Cancel tasks individually
+- 📊 Real-time progress tracking
+- 🎯 Smart task management
+
+### ⚙️ Settings Management
+- 💾 Persistent configuration storage
+- ✅ API key validation
+- 📁 Custom download directory
+- 🔄 Auto-save functionality (planned)
+- 💬 Visual feedback on save
+
+### 📄 PDF Generation
+- ✨ Clean formatting
+- 📝 Video title as filename
+- ⏱️ Timestamp-based text organization
+- 📊 Progress callbacks
+- 🎨 Professional layout
+
+## 🔗 Supported YouTube URL Formats
+
+✅ `https://www.youtube.com/watch?v=VIDEO_ID`
+✅ `https://youtu.be/VIDEO_ID`
+✅ `https://www.youtube.com/embed/VIDEO_ID`
+✅ `https://www.youtube.com/v/VIDEO_ID`
+
+## 🔑 API Configuration
+
+This application uses **TranscriptAPI** for fetching YouTube transcripts. 
+
+### 📝 Steps to get your API key:
+
+1. 🌐 Sign up at [TranscriptAPI](https://transcriptapi.com)
+2. 🔑 Get your API key from dashboard
+3. ⚙️ Enter the key in application settings
+4. ✅ Start converting videos!
+
+## 🐛 Error Handling
+
+The application intelligently handles:
+
+- ❌ Invalid YouTube URLs
+- 🌐 Network connection errors
+- 🔑 API authentication failures
+- ⚙️ Missing settings configuration
+- 🛑 Task cancellation
+- 📁 Invalid download paths
+- ⏱️ Request timeouts
+
+## 💡 Usage Tips
+
+💡 **Pro Tip 1**: Configure your settings before adding videos to the queue!
+
+💡 **Pro Tip 2**: You can add multiple videos at once and they'll process sequentially
+
+💡 **Pro Tip 3**: Use the cancel button (❌) to remove tasks you don't need
+
+💡 **Pro Tip 4**: The app validates URLs automatically - just paste and go!
+
+## 📝 Code Comments Convention
+
+The codebase uses a color-coded comment system:
+- 🔴 `#!` **Red comments** - Critical functions and main operations
+- 🔵 `#?` **Blue comments** - Explanatory comments and details
+
+## 🎯 Workflow Example
+
+```
+1. 📋 Paste YouTube URL → 
+2. ✅ URL Validated → 
+3. ➕ Added to Queue → 
+4. 🎯 Click "Convert to PDF" → 
+5. 📊 Processing... → 
+6. 📄 PDF Generated → 
+7. 💾 Saved to Your Folder → 
+8. ✨ Done!
 ```
 
-## Kullanım
+## 🔮 Future Enhancements
 
-1. **Ayarlar**: Sağ üst köşedeki ayarlar butonuna tıklayın
-2. **API Key**: YouTube Transcript API anahtarınızı girin
-3. **Klasör Seç**: PDF'lerin kaydedileceği klasörü seçin
-4. **Kaydet**: Ayarları kaydedin
-5. **URL Gir**: YouTube video URL'sini girin
-6. **Convert**: "Convert to PDF" butonuna tıklayın
+- [ ] 💾 Auto-save functionality
+- [ ] 🌍 Multiple language support
+- [ ] 📜 Export history tracking
+- [ ] 🔤 Subtitle language selection
+- [ ] 🎬 Video thumbnail in PDF
+- [ ] 🐞 bug fixes and UI improvements
 
-## Uygulama Paketleme
 
-### Android
+## 🤝 Contributing
 
-APK dosyası oluştur:
-```bash
-flet build apk -v
+🎉 Contributions are welcome! Feel free to:
+
+- 🐛 Report bugs
+- 💡 Suggest new features
+- 🔧 Submit pull requests
+- 📖 Improve documentation
+- ⭐ Star the project
+
+## 📄 License
+
+📜 This project is open source and available under the [MIT License](LICENSE).
+
+## 👨‍💻 Developer Notes
+
+### 🔑 Key Classes
+
+- 📋 **VideoQueue**: Manages task queue and sequential processing
+- 🎬 **VideoTask**: Represents individual conversion tasks
+- ⚙️ **SettingsPanel**: UI for application configuration
+- 💾 **SettingsManager**: Handles settings persistence
+
+### 🏗️ Architecture
+
+The application follows a service-oriented architecture:
+- 🎯 Separation of concerns (UI, Services, Data)
+- ⚡ Async/await for non-blocking operations
+- 🔄 Event-driven UI updates
+- 💾 Persistent settings management
+- 🎨 Modern Flet framework
+
+### 🛠️ Tech Stack
+
+- 🐍 **Python 3.10+**: Core language
+- 🎨 **Flet**: Cross-platform UI framework
+- 🌐 **aiohttp**: Async HTTP requests
+- 📄 **ReportLab**: PDF generation
+- 💾 **JSON**: Settings storage
+
+## 📊 Performance
+
+- ⚡ Fast async processing
+- 💪 Multiple videos in queue
+- 📊 Real-time progress updates
+- 🔄 Non-blocking UI
+- 💾 Lightweight footprint
+
+## 🎓 Learning Resources
+
+- 📖 [Flet Documentation](https://flet.dev)
+- 🌐 [aiohttp Documentation](https://docs.aiohttp.org)
+- 📄 [ReportLab Documentation](https://www.reportlab.com/docs/)
+- 🔑 [TranscriptAPI Docs](https://transcriptapi.com/docs)
+
+## 📞 Support & Community
+
+💬 **Need Help?**
+- 🐛 Found a bug? Open an issue on GitHub
+- 💡 Have a suggestion? Start a discussion
+- 📧 Need support? Contact us
+- ⭐ Like the project? Give it a star!
+
+## 🌟 Showcase
+
+```
+╔══════════════════════════════════════╗
+║   🎬 YouTube to PDF Converter 📄    ║
+╠══════════════════════════════════════╣
+║  ✨ Fast • Simple • Beautiful ✨    ║
+╚══════════════════════════════════════╝
 ```
 
-AAB (Android App Bundle) oluştur:
-```bash
-flet build aab -v
-```
+## 🎉 Credits
 
-Detaylı bilgi için: [Android Packaging Guide](https://flet.dev/docs/publish/android/)
-
-### iOS
-
-IPA dosyası oluştur:
-```bash
-flet build ipa -v
-```
-
-**Not**: iOS build için macOS gereklidir.
-
-Detaylı bilgi için: [iOS Packaging Guide](https://flet.dev/docs/publish/ios/)
-
-### macOS
-
-macOS uygulaması oluştur:
-```bash
-flet build macos -v
-```
-
-**Not**: macOS build için macOS gereklidir.
-
-Detaylı bilgi için: [macOS Packaging Guide](https://flet.dev/docs/publish/macos/)
-
-### Linux
-
-Linux paketi oluştur:
-```bash
-flet build linux -v
-```
-
-Detaylı bilgi için: [Linux Packaging Guide](https://flet.dev/docs/publish/linux/)
-
-### Windows
-
-Windows kurulum dosyası oluştur:
-```bash
-flet build windows -v
-```
-
-Detaylı bilgi için: [Windows Packaging Guide](https://flet.dev/docs/publish/windows/)
-
-## Proje Yapısı
-```
-transcriptor/
-├── src/
-│   ├── main.py                 # Ana uygulama dosyası
-│   ├── services/
-│   │   ├── transcript.py       # YouTube transcript servisi
-│   │   ├── pdf_generate.py     # PDF oluşturma servisi
-│   │   └── settings_manager.py # Ayarlar yönetimi
-│   └── assets/                 # Görsel ve kaynak dosyaları
-├── pyproject.toml              # Proje bağımlılıkları
-├── settings.json               # Kullanıcı ayarları (otomatik oluşur)
-└── README.md                   # Bu dosya
-```
-
-## Bağımlılıklar
-
-- **flet**: Modern UI framework
-- **reportlab**: PDF oluşturma kütüphanesi
-- **aiohttp**: Asenkron HTTP istekleri
-
-## Sorun Giderme
-
-### API Key hatası
-- Geçerli bir YouTube Transcript API anahtarı girdiğinizden emin olun
-- Ayarlar menüsünden API anahtarınızı kontrol edin
-
-### Klasör seçimi sorunu
-- Yazma izniniz olan bir klasör seçtiğinizden emin olun
-- Windows'ta C:\Users\KullanıcıAdı\Documents klasörünü deneyin
-
-### PDF oluşturma hatası
-- İndirme klasörünün var olduğundan emin olun
-- Disk alanınızın yeterli olduğunu kontrol edin
-
-## Lisans
-
-[Lisans bilgisi buraya eklenecek]
-
-## Katkıda Bulunma
-
-Pull request'ler memnuniyetle karşılanır. Büyük değişiklikler için lütfen önce bir issue açarak ne değiştirmek istediğinizi tartışın.
-
-## İletişim
-
-- Geliştirici: [İsminiz]
-- Email: you@example.com
-- GitHub: [GitHub profiliniz]
-
-## Teşekkürler
-
-Bu proje [Flet](https://flet.dev/) framework'ü kullanılarak geliştirilmiştir.
+Made with ❤️ by developers who love automation
 
 ---
 
-Daha fazla bilgi için [Flet Documentation](https://flet.dev/docs/) sayfasını ziyaret edin.
+⚠️ **Important Note**: This application requires a valid TranscriptAPI subscription to function. Make sure to configure your API key before using the application.
+
+🚀 **Ready to start?** Clone the repo and start converting! 
+
+⭐ **Don't forget to star the project if you find it useful!** ⭐
+
+---
+
+<div align="center">
+
+### 🎯 Happy Converting! 📄✨
+
+Made with 💙 and lots of ☕
+
+</div>
