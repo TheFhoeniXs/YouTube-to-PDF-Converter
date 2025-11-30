@@ -24,7 +24,7 @@
 
 ### 1️⃣ **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/TheFhoeniXs/YouTube-to-PDF-Converter.git
 cd youtube-pdf-converter
 ```
 
