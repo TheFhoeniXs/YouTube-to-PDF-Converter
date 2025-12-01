@@ -106,7 +106,7 @@ class VideoTask(ft.Container):
 
         if value >= 1.0:  #? When task is completed, green color and "finished" message
             self.status_text.color = "#32cd32"
-            self.status_text.value = "finished"
+            self.status_text.value = "Finished"
         self.update()
     
     def cancel_task(self, e):
@@ -164,7 +164,7 @@ class SettingsPanel(ft.Container):
         
         #? Download folder display
         self.dw_path = ft.Text(
-            value=setting.get_download_path() or "Klasör seçilmedi",
+            value=setting.get_download_path() or "No folder selected",
             size=12,
             color=ft.Colors.WHITE70,
             width=250,
@@ -173,7 +173,7 @@ class SettingsPanel(ft.Container):
         
         #? Status message
         self.status_text = ft.Text(
-            "Ayarlar kaydedildi ✓",
+            "Settings saved ✓",
             color=ft.Colors.GREEN_300,
             visible=False,
             size=14
@@ -199,11 +199,11 @@ class SettingsPanel(ft.Container):
                     ft.Container(
                         content=ft.Column(
                             [
-                                ft.Text("İndirme Klasörü", size=16, weight=ft.FontWeight.BOLD),
+                                ft.Text("Download Folder", size=16, weight=ft.FontWeight.BOLD),
                                 ft.Row(
                                     [
                                         ft.ElevatedButton(
-                                            text="Klasör Seç",
+                                            text="Select Folder",
                                             icon=ft.Icons.FOLDER_OPEN,
                                             on_click=self.pick_folder,
                                             style=ft.ButtonStyle(
@@ -227,7 +227,7 @@ class SettingsPanel(ft.Container):
                     
                     #? Save button
                     ft.ElevatedButton(
-                        text="Ayarları Kaydet",
+                        text="Save Settings",
                         icon=ft.Icons.SAVE,
                         style=ft.ButtonStyle(
                             color=ft.Colors.WHITE,
@@ -247,7 +247,7 @@ class SettingsPanel(ft.Container):
     
     def pick_folder(self, e):
         #! Opens folder selection dialog
-        self.filepicker.get_directory_path(dialog_title="İndirme klasörünü seçin")
+        self.filepicker.get_directory_path(dialog_title="Select download folder")
     
     def update_temp_folder_path(self, path: str):
         #? Temporarily update selected folder path (not yet saved)
@@ -291,7 +291,6 @@ def check_api_dwpath(setting: SettingsManager):
         return True
 
 
-
 def extract_youtube_id(url: str) -> str | None:
     #! Extracts video ID from YouTube URL
     #? Different YouTube URL format patterns
@@ -307,6 +306,7 @@ def extract_youtube_id(url: str) -> str | None:
             return match.group(1)
     
     return None
+
 
 def validate_youtube_url(e, queue: VideoQueue, setting: SettingsManager):
     #! YouTube URL validation and task addition function
@@ -332,11 +332,10 @@ def validate_youtube_url(e, queue: VideoQueue, setting: SettingsManager):
     e.page.update()
 
 
-
 def main(page: ft.Page):
     #! Main application function
     #? Window settings
-    page.title = "PDF Converter"
+    page.title = "Transcriptor"
     page.theme_mode = ft.ThemeMode.DARK
     page.window.width = 421
     page.window.height = 681
@@ -363,9 +362,9 @@ def main(page: ft.Page):
     #! Create SettingsPanel and store reference
     settings_panel_ref = SettingsPanel(setting=settings, filepicker=file_pickers)
 
-    #? Alert Dialog
+    #? Alert Dialog for settings
     dlg = ft.AlertDialog(
-        title=ft.Text("Ayarlar", size=20, weight=ft.FontWeight.BOLD),
+        title=ft.Text("Settings", size=20, weight=ft.FontWeight.BOLD),
         content=settings_panel_ref,
         alignment=ft.alignment.center,
     )
@@ -379,7 +378,7 @@ def main(page: ft.Page):
         content=ft.Row(
             [
                 ft.Icon(name=ft.Icons.PICTURE_AS_PDF, color=ft.Colors.BLUE, size=40),
-                ft.Text("PDF Converter", size=32, weight=ft.FontWeight.BOLD),
+                ft.Text("Transcriptor", size=32, weight=ft.FontWeight.BOLD),
             ],
             alignment=ft.MainAxisAlignment.START,
         ),
