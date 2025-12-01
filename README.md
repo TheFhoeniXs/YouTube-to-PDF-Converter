@@ -2,6 +2,15 @@
 
 > 🚀 A powerful desktop application that converts YouTube video transcripts into beautiful PDF documents! Built with Python and Flet framework.
 
+## 📸 Screenshots
+
+### 🖥️ Main Interface
+<img src="assets/screenshots/main_ui.png" width="600"/>
+
+### ⚙️ Settings Menu
+<img src="assets/screenshots/settings_ui.png" width="600"/>
+
+
 ## ✨ Features
 
 - 🎥 **YouTube Transcript Extraction**: Automatically fetches video transcripts from YouTube
