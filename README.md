@@ -68,7 +68,7 @@ python main.py
 ## 📁 Project Structure
 
 ```
-youtube-pdf-converter/
+src/
 ├── 🎯 main.py                          # Main application entry point
 ├── 📦 services/
 │   ├── 🎥 transcript.py                # YouTube transcript fetching service
